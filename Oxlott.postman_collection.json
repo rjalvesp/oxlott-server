@@ -1,0 +1,278 @@
+{
+  "info": {
+    "_postman_id": "a4d6cd45-f06f-4bd6-a355-81b71f107cee",
+    "name": "Oxlott",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Event Types",
+      "item": [
+        {
+          "name": "All Event Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/event-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "event-types"]
+            },
+            "description": "Should return all non-disabled Event Types"
+          },
+          "response": []
+        },
+        {
+          "name": "Search All Event Types",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/event-types/datatable",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "event-types", "datatable"]
+            },
+            "description": "Should return all Event Types, even disabled ones, paginated, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Event Type By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/event-types/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "event-types", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            },
+            "description": "Should return ONE Event Type, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event Type By ID",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/event-types/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "event-types", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            },
+            "description": "Should update ONE Event Type, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Event Type",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/event-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "event-types"]
+            },
+            "description": "Should create ONE Event Type, available only to admins."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "All Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/events",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "events"]
+            },
+            "description": "Should return all non-disabled Events, paginated, from last day, current day, and tomorrow."
+          },
+          "response": []
+        },
+        {
+          "name": "Search All Events",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/events/datatable",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "events", "datatable"]
+            },
+            "description": "Should return all Events, even disabled ones, paginated, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Event By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/events/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "events", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            },
+            "description": "Should return ONE Event, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event By ID",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/events/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "events", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            },
+            "description": "Should update ONE Event, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/events",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "events"]
+            },
+            "description": "Should create ONE Event, available only to admins."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bills",
+      "item": [
+        {
+          "name": "All Bills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/bills",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "bills"]
+            },
+            "description": "Should return all user's Bills, paginated."
+          },
+          "response": []
+        },
+        {
+          "name": "Search All Bills",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/bills/datatable",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "bills", "datatable"]
+            },
+            "description": "Should return all Bills, even disabled ones, paginated, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bill By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/bills/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "bills", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": null
+                }
+              ]
+            },
+            "description": "Should return ONE Bill, available only to admins."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Bill",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/api/v1/bills",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["api", "v1", "bills"]
+            },
+            "description": "Should create ONE Bill, only available to common users."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

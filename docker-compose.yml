@@ -1,0 +1,32 @@
+version: "3"
+services:
+  oxlott_nosql:
+    image: couchdb
+    restart: always
+    ports:
+      - "5984:${COUCHDB_PORT}"
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+    volumes:
+      - ./dbdata:/opt/couchdb/data
+  initializer:
+    image: curlimages/curl
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - oxlott_nosql
+    command:
+      [
+        "sh",
+        "-c",
+        "sleep 15 && curl -u ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT
+        oxlott_nosql:${COUCHDB_PORT}/_users && curl -u
+        ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT
+        oxlott_nosql:${COUCHDB_PORT}/${COUCHDB_NAME} && curl -u
+        ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT
+        oxlott_nosql:${COUCHDB_PORT}/migrations && curl -u
+        ${COUCHDB_USER}:${COUCHDB_PASSWORD} -X PUT
+        oxlott_nosql:${COUCHDB_PORT}/seeds",
+      ]

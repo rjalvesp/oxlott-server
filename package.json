@@ -1,0 +1,77 @@
+{
+  "name": "oxlott-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:migration:create": "node ./database/run migration:create",
+    "db:migration:up": "node ./database/run migration:up",
+    "db:seed:create": "node ./database/run seed:create",
+    "db:seed:up": "node ./database/run seed:up",
+    "cron:event:generator": "node ./cron/event-generator.js",
+    "cron:token:generator": "node ./cron/token-generator.js",
+    "start:dev": "./node_modules/.bin/nodemon --inspect ./bin/www.js",
+    "lint": "./node_modules/.bin/eslint . --fix && echo '✔  Your .js files look good.'",
+    "prettier": "./node_modules/.bin/prettier --write .",
+    "docker": "docker-compose",
+    "postinstall": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjalvesp/oxlott-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rjalvesp/oxlott-server/issues"
+  },
+  "homepage": "https://github.com/rjalvesp/oxlott-server#readme",
+  "dependencies": {
+    "@joi/date": "^2.1.0",
+    "axios": "^0.25.0",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.2",
+    "express-joi-validation": "^5.0.1",
+    "express-jwt": "^6.1.0",
+    "express-jwt-permissions": "^1.3.6",
+    "express-rate-limit": "^6.1.0",
+    "express-useragent": "^1.0.15",
+    "helmet": "^5.0.1",
+    "http-errors": "^2.0.0",
+    "joi": "^17.5.0",
+    "jwks-rsa": "^2.0.5",
+    "nano": "^9.0.5",
+    "node-cron": "^3.0.0",
+    "ramda": "^0.28.0",
+    "ramda-adjunct": "^3.0.0",
+    "random": "^3.0.6",
+    "request": "^2.88.2",
+    "uuid": "^8.3.2",
+    "winston": "^3.4.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "chai": "^4.3.4",
+    "eslint": "^8.7.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-ramda": "^2.5.1",
+    "faker": "^6.6.6",
+    "husky": "^7.0.4",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
+    "prettier": "^2.5.1",
+    "standard-version": "^9.3.2",
+    "supertest": "^6.2.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".husky/*",
+      "node_modules/*"
+    ],
+    "delay": "500"
+  }
+}
