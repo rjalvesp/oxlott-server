@@ -3461,6 +3461,11 @@ node-preload@^0.2.1:
   dependencies:
     process-on-spawn "^1.0.0"
 
+node-redis@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/node-redis/-/node-redis-0.1.7.tgz#6b5fd61ad95c331ea8289ca58856db13a3fb8013"
+  integrity sha1-a1/WGtlcMx6oKJyliFbbE6P7gBM=
+
 node-releases@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.1.tgz#3d1d395f204f1f2f29a54358b9fb678765ad2fc5"

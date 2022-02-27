@@ -1,4 +1,5 @@
 const Path = require("path");
+
 Promise.resolve(
   require("dotenv").config({
     allowEmptyValues: true,
@@ -13,17 +14,27 @@ const {
   COUCHDB_PROTOCOL: http,
   COUCHDB_HOST: host,
   COUCHDB_PORT: port,
+  REDIS_HOST: redisHost,
+  REDIS_PORT: redisPort,
+  REDIS_PASSWORD: redisPass,
 } = process.env;
 
 const nano = require("nano")(`${http}://${user}:${pwd}@${host}:${port}`);
+const redis = require("node-redis").createClient(
+  redisPort,
+  redisHost,
+  redisPass
+);
 
 const db = nano.use(name);
+redis.connect();
 
 module.exports = {
   db: {
     ...db,
     createModel: require("./model")(db),
   },
+  redis,
   migrationsDB: nano.use("migrations"),
   seedsDB: nano.use("seeds"),
 };

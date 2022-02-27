@@ -45,6 +45,7 @@
     "jwks-rsa": "^2.0.5",
     "nano": "^9.0.5",
     "node-cron": "^3.0.0",
+    "node-redis": "^0.1.7",
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.0.0",
     "random": "^3.0.6",

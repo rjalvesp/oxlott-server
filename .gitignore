@@ -4,3 +4,4 @@ yarn-error.log
 .env
 auth0/token.json
 *.log
+**/*.log
