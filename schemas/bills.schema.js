@@ -21,4 +21,8 @@ module.exports = {
     eventId: Joi.string().required(),
     paymentId: Joi.string().required(),
   },
+  block: {
+    eventId: Joi.string().required(),
+    data: Joi.array().items(Joi.string()).required(),
+  },
 };
