@@ -8,5 +8,6 @@ router.use(
   ensureAuthenticated,
   require("./routes/event-types")
 );
+router.use("/users", ensureAuthenticated, require("./routes/users"));
 
 module.exports = router;

@@ -12,6 +12,7 @@ const createEvent = require("../controllers/v1/events/createEvent");
 const datatableEvents = require("../controllers/v1/events/datatableEvents");
 const getAllEvents = require("../controllers/v1/events/getAllEvents");
 const getEventById = require("../controllers/v1/events/getEventById");
+const getEventBillsById = require("../controllers/v1/events/getEventBillsById");
 const updateEventById = require("../controllers/v1/events/updateEventById");
 const ensureAdmin = require("../middlewares/ensure-admin");
 
@@ -34,6 +35,12 @@ router.post(
 
 router.get("/:id", (req, res) => {
   getEventById(req).then((value) => {
+    res.status(200).json(value);
+  });
+});
+
+router.get("/:id/bills", (req, res) => {
+  getEventBillsById(req).then((value) => {
     res.status(200).json(value);
   });
 });

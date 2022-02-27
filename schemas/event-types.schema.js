@@ -13,6 +13,7 @@ const schema = {
   defaultCost: Joi.number().positive().required(),
   defaultPrize: Joi.number().positive().required(),
   elements: Joi.number().min(1).max(15).required(),
+  requiresWinner: Joi.boolean().default(false).optional(),
   isSorted: Joi.boolean().default(true),
   minValue: Joi.string()
     .pattern(/^[0-9][0-9][0-9]$/, { name: "min value" })

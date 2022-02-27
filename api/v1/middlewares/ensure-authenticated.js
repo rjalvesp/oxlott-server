@@ -10,6 +10,7 @@ module.exports = (req, res, next) => {
   )(req);
   userGetter(token)
     .then((user) => {
+      console.log(req.user);
       req.jwt = req.user;
       req.user = user;
       req.userId = user.user_id || user.sub;

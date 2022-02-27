@@ -1,5 +1,15 @@
 version: "3"
 services:
+  oxlott_redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - "6379:${REDIS_PORT}"
+    command:
+      redis-server --save 20 1 --loglevel warning --requirepass
+      ${REDIS_PASSWORD}
+    volumes:
+      - cache:/data
   oxlott_nosql:
     image: couchdb
     restart: always
@@ -16,6 +26,7 @@ services:
       restart_policy:
         condition: on-failure
     depends_on:
+      - oxlott_redis
       - oxlott_nosql
     command:
       [

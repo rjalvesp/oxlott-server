@@ -3,9 +3,20 @@ const axios = require("axios");
 
 const { AUTH0_DOMAIN: domain } = process.env;
 
-module.exports = (token) =>
-  axios
+const pseudoCache = {};
+
+module.exports = (token) => {
+  if (pseudoCache[token]) {
+    return pseudoCache[token];
+  }
+
+  return axios
     .get(`${domain}/userinfo`, {
       headers: { authorization: `Bearer ${token}` },
     })
-    .then(R.prop("data"));
+    .then(R.prop("data"))
+    .then((data) => {
+      pseudoCache[token] = data;
+      setTimeout(() => delete pseudoCache[token], data.exp);
+    });
+};
