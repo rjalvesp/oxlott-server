@@ -6,17 +6,17 @@ const find = require("./_modelFns/find");
 
 module.exports =
   (db) =>
-    ({ type, schema, overrideId }) => {
-      return {
-        ...db,
-        create: create({ db, overrideId, schema, type }),
+  ({ type, schema, overrideId }) => {
+    return {
+      ...db,
+      create: create({ db, overrideId, schema, type }),
 
-        update: update({ db, overrideId, schema, type }),
+      update: update({ db, overrideId, schema, type }),
 
-        getById: getById({ db, type }),
+      getById: getById({ db, type }),
 
-        delete: deleteById({ db, type }),
+      delete: deleteById({ db, type }),
 
-        find: find({ db, type }),
-      };
+      find: find({ db, type }),
     };
+  };

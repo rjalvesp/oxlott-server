@@ -9,7 +9,8 @@ services:
       redis-server --save 20 1 --loglevel warning --requirepass
       ${REDIS_PASSWORD}
     volumes:
-      - cache:/data
+      - "./tmp/env/${NODE_ENV}/redisdata:/data:cached"
+      - "./etc/redis/redis.conf:/usr/local/etc/redis/redis.conf"
   oxlott_nosql:
     image: couchdb
     restart: always

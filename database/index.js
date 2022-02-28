@@ -20,11 +20,7 @@ const {
 } = process.env;
 
 const nano = require("nano")(`${http}://${user}:${pwd}@${host}:${port}`);
-const redis = require("node-redis").createClient(
-  redisPort,
-  redisHost,
-  redisPass
-);
+const redis = require("redis").createClient(redisPort, redisHost, redisPass);
 
 const db = nano.use(name);
 redis.connect();
