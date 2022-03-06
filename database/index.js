@@ -1,4 +1,5 @@
 const Path = require("path");
+const Queue = require("bull");
 
 Promise.resolve(
   require("dotenv").config({
@@ -31,6 +32,10 @@ module.exports = {
     createModel: require("./model")(db),
   },
   redis,
+  createQueue: (name) =>
+    new Queue(name, {
+      redis: { port: redisPort, host: redisHost, password: redisPass },
+    }),
   migrationsDB: nano.use("migrations"),
   seedsDB: nano.use("seeds"),
 };
