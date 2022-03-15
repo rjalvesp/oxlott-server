@@ -8,9 +8,8 @@ module.exports = (req, res, next) => {
     R.split(" "),
     R.last
   )(req);
-  userGetter(token)
+  userGetter(token, req.user)
     .then((user) => {
-      console.log(req.user);
       req.jwt = req.user;
       req.user = user;
       req.userId = user.user_id || user.sub;

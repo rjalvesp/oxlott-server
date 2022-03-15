@@ -10,12 +10,14 @@ const app = express();
 app.use(cors());
 
 app.use(helmet());
-app.use(tokenValidator);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(handleApiError);
 app.get("/", (req, res) => res.status(200).json({ alive: true }));
-app.use("/api/v1", routes);
+app.get("/health", (req, res) =>
+  res.status(200).json({ maindb: true, logdb: true, queuedb: true })
+);
+app.use("/api/v1", tokenValidator, routes);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

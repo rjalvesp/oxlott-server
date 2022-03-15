@@ -5,9 +5,9 @@ const { AUTH0_DOMAIN: domain } = process.env;
 
 const pseudoCache = {};
 
-module.exports = (token) => {
+module.exports = (token, user) => {
   if (pseudoCache[token]) {
-    return pseudoCache[token];
+    return Promise.resolve(pseudoCache[token]);
   }
 
   return axios
@@ -17,6 +17,7 @@ module.exports = (token) => {
     .then(R.prop("data"))
     .then((data) => {
       pseudoCache[token] = data;
-      setTimeout(() => delete pseudoCache[token], data.exp);
+      setTimeout(() => delete pseudoCache[token], user.exp);
+      return data;
     });
 };
