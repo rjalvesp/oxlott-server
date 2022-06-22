@@ -72,7 +72,8 @@
   "nodemonConfig": {
     "ignore": [
       ".husky/*",
-      "node_modules/*"
+      "node_modules/*",
+      "auth0/token.json"
     ],
     "delay": "500"
   }

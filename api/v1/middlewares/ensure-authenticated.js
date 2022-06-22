@@ -17,5 +17,7 @@ module.exports = (req, res, next) => {
     .then(() => users.getById(req.userId))
     .then(R.when(R.isNil, () => users.create({ _id: req.userId, ...req.user })))
     .then(() => next())
-    .catch(() => res.status(401).send("Unauthorized"));
+    .catch(() => {
+      res.status(401).send("Unauthorized");
+    });
 };
