@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const ensureAuthenticated = require("./middlewares/ensure-authenticated");
 
+router.use("/assets", ensureAuthenticated, require("./routes/assets"));
 router.use("/bills", ensureAuthenticated, require("./routes/bills"));
 router.use("/events", ensureAuthenticated, require("./routes/events"));
 router.use(

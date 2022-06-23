@@ -4,6 +4,7 @@ const ExpressJoi = require("express-joi-validation").createValidator({});
 
 const datatableUsers = require("../controllers/v1/users/datatableUsers");
 const getCurrentUser = require("../controllers/v1/users/getCurrentUser");
+// const updateCurrentUser = require("../controllers/v1/users/updateCurrentUser");
 const getUserById = require("../controllers/v1/users/getUserById");
 const getUserBillsById = require("../controllers/v1/users/getUserBillsById");
 const ensureAdmin = require("../middlewares/ensure-admin");
@@ -26,6 +27,12 @@ router.get("/me", (req, res) => {
     res.status(200).json(value);
   });
 });
+
+// router.put("/me", (req, res) => {
+//   updateCurrentUser(req).then((value) => {
+//     res.status(200).json(value);
+//   });
+// });
 
 router.get("/:id", ensureAdmin, (req, res) => {
   getUserById(req).then((value) => {
