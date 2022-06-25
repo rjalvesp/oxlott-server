@@ -13,12 +13,21 @@ module.exports =
       (value) => Joi.object(schema).validate(value),
       R.prop("value"),
       (value) =>
-        db.get(`${fixId(type, _id)}`).then(({ createdAt }) =>
-          db.insert({
-            ...value,
-            _id: overrideId ? `${fixId(type, _id)}` : `${type}:${_id}`,
-            type,
-            createdAt,
-          })
-        )
+        db
+          .get(`${fixId(type, _id)}`)
+          .then(
+            ({
+              createdAt,
+              _rev,
+              ...oldValue
+            }) =>
+              db.insert({
+                ...oldValue,
+                ...value,
+                _id: overrideId ? `${fixId(type, _id)}` : `${type}:${_id}`,
+                type,
+                createdAt,
+                _rev
+              })
+          )
     )(body);

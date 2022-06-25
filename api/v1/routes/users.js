@@ -7,6 +7,8 @@ const getCurrentUser = require("../controllers/v1/users/getCurrentUser");
 const getUserById = require("../controllers/v1/users/getUserById");
 const getUserBillsById = require("../controllers/v1/users/getUserBillsById");
 const ensureAdmin = require("../middlewares/ensure-admin");
+const updateCurrentUser = require("../controllers/v1/users/updateCurrentUser");
+const { updateController: userSchema } = require("../../../schemas/users.schema");
 
 const finder = require("../../../schemas/finder.schema");
 
@@ -35,6 +37,12 @@ router.get("/:id", ensureAdmin, (req, res) => {
 
 router.get("/:id/bills", ensureAdmin, (req, res) => {
   getUserBillsById(req).then((value) => {
+    res.status(200).json(value);
+  });
+});
+
+router.put("/me", ExpressJoi.body(Joi.object(userSchema)), (req, res) => {
+  updateCurrentUser(req).then((value) => {
     res.status(200).json(value);
   });
 });
