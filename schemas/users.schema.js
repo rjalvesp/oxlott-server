@@ -17,6 +17,13 @@ const schema = {
   legal_verified: Joi.boolean().required().default(false),
 };
 
+const updateController = {
+  name: Joi.string().optional(),
+  phone: Joi.string().optional(),
+  picture: Joi.string().optional()
+};
+
 module.exports = {
   model: schema,
+  updateController: updateController
 };
