@@ -12,17 +12,17 @@ model.getEventType = (event) => {
 
 const updateEvent =
   ({ _id, ...body }) =>
-  (value) =>
-    model.update(
-      _id,
-      R.pipe(
-        R.omit(["_rev"]),
-        R.mergeDeepLeft({
-          value,
-          winner: value ? R.omit(["event"], value) : null,
-        })
-      )(body)
-    );
+    (value) =>
+      model.update(
+        _id,
+        R.pipe(
+          R.omit(["_rev"]),
+          R.mergeDeepLeft({
+            value,
+            winner: value ? R.omit(["event"], value) : null,
+          })
+        )(body)
+      );
 
 const pickAnyBill = (event) => {
   const { _id } = event;

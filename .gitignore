@@ -6,4 +6,5 @@ auth0/token.json
 *.log
 **/*.log
 tmp
+dump.rdb
 error.log
