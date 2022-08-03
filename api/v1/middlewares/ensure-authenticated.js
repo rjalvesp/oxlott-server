@@ -15,9 +15,11 @@ module.exports = (req, res, next) => {
       req.userId = user.user_id || user.sub;
     })
     .then(() => users.getById(req.userId))
+    .then((storedUser) => (req.user = storedUser))
     .then(R.when(R.isNil, () => users.create({ _id: req.userId, ...req.user })))
     .then(() => next())
-    .catch(() => {
+    .catch((e) => {
+      console.log(e);
       res.status(401).send("Unauthorized");
     });
 };

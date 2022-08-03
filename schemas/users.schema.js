@@ -8,6 +8,7 @@ const schema = {
   nickname: Joi.string(),
   name: Joi.string().required(),
   picture: Joi.string(),
+  legalPicture: Joi.string(),
   locale: Joi.string(),
   updated_at: Joi.string(),
   email: Joi.string().required(),
@@ -15,15 +16,18 @@ const schema = {
   country: Joi.string().optional(),
   legal_id: Joi.string().optional(),
   legal_verified: Joi.boolean().required().default(false),
+  bankAccount: Joi.boolean().required().default(false),
 };
 
 const updateController = {
   name: Joi.string().optional(),
   phone: Joi.string().optional(),
-  picture: Joi.string().optional()
+  picture: Joi.string().optional(),
+  legalPicture: Joi.string().optional(),
+  bankAccount: Joi.string().optional(),
 };
 
 module.exports = {
   model: schema,
-  updateController: updateController
+  updateController: updateController,
 };

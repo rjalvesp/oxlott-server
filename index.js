@@ -1,15 +1,16 @@
 const createError = require("http-errors");
 const express = require("express");
 const helmet = require("helmet");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const tokenValidator = require("./auth0/token-validator");
 const routes = require("./api/v1");
 
 const app = express();
 app.use(cors());
 
 app.use(helmet());
+app.use(bodyParser({ limit: "2mb" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(handleApiError);
@@ -17,7 +18,7 @@ app.get("/", (req, res) => res.status(200).json({ alive: true }));
 app.get("/health", (req, res) =>
   res.status(200).json({ maindb: true, logdb: true, queuedb: true })
 );
-app.use("/api/v1", tokenValidator, routes);
+app.use("/api/v1", routes);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

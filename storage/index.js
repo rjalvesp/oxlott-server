@@ -19,7 +19,5 @@ const s3 = new AWS.S3();
 module.exports = {
   read: (Key) => s3.getObject({ Key, Bucket }).promise(),
   save: (Key, content) =>
-    s3
-      .putObject({ Bucket, Key, ACL, Body: Buffer.from(content, "base64") })
-      .promise(),
+    s3.putObject({ Bucket, Key, ACL, Body: content }).promise(),
 };

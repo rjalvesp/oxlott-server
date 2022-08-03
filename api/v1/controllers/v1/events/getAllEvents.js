@@ -4,7 +4,7 @@ dayjs.extend(utc);
 
 module.exports = ({ query: { limit, skip } }) =>
   require("../../../../../models/events.model").find({
-    selector: { to: { $gt: dayjs().utc().format() } },
-    limit,
-    skip,
+    // selector: { to: { $gt: dayjs().utc().format() } },
+    // limit,
+    // skip,
   });

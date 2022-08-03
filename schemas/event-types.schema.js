@@ -5,6 +5,7 @@ const dayjsUnits = {
   duration: Joi.object({
     days: Joi.number().optional(),
     hours: Joi.number().optional(),
+    minutes: Joi.number().optional(),
   }).required(),
 };
 
@@ -13,6 +14,8 @@ const schema = {
   defaultCost: Joi.number().positive().required(),
   defaultPrize: Joi.number().positive().required(),
   elements: Joi.number().min(1).max(15).required(),
+  image: Joi.string().default(""),
+  canPickElements: Joi.boolean().default(false),
   requiresWinner: Joi.boolean().default(false).optional(),
   isSorted: Joi.boolean().default(true),
   minValue: Joi.string()

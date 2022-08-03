@@ -1,9 +1,12 @@
 const R = require("ramda");
 const bill = require("../../../../../models/bills.model");
 
-module.exports = ({ body, references: { event, eventType }, userId }) =>
+module.exports = ({ body, references: { event }, user }) =>
   R.pipe(
-    R.mergeDeepLeft({ event: event || {}, eventType: eventType || {}, userId }),
-    R.omit(["eventTypeId", "eventId"]),
+    R.mergeDeepLeft({
+      event,
+      user,
+    }),
+    R.omit(["eventId"]),
     bill.create
   )(body);

@@ -10,6 +10,8 @@ module.exports = (path) => (req, res, next) =>
         throw new Error("Disabled event type");
       })
     )
-    .then((value) => R.assocPath(["references", "eventType"], value, req))
+    .then(
+      (eventType) => (req.references = { ...(req.references || {}), eventType })
+    )
     .then(() => next())
     .catch(() => res.status(400).json({ reason: "Invalid event type" }));
