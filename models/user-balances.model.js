@@ -7,7 +7,6 @@ const model = db.createModel({
   type: "userBalance",
   design: "userBalances",
   schema,
-  overrideId: true,
 });
 
 const queues = {};
@@ -27,7 +26,7 @@ const add = (userId, body) => {
         balance: doc.balance + amountSubtotal,
       })
     )
-    .catch((a) => model.create({ userId, balance: amountSubtotal }));
+    .catch(() => model.create({ userId, balance: amountSubtotal }));
 };
 
 const subtract = (userId, body) => {
@@ -42,8 +41,8 @@ const subtract = (userId, body) => {
       )(bills);
       const balance = doc.balance - billsCosts * 100;
       if (balance < 0) {
-        logger.error(`Insufficient Funds ${userId} ${_id}`);
-        throw new Error(`Insufficient Funds ${userId} ${_id}`);
+        logger.error(`Insufficient Funds ${userId}`);
+        throw new Error(`Insufficient Funds ${userId}`);
       }
       return model.update(doc._id, {
         ...doc,
@@ -61,6 +60,8 @@ const queue = (type, userId) => {
           return add(userId, body);
         case "subtract":
           return subtract(userId, body);
+        default:
+          return;
       }
     });
   }

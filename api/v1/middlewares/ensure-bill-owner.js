@@ -1,9 +1,14 @@
 const R = require("ramda");
-const bills = require("../../../models/bills.model");
 
 module.exports = (req, res, next) => {
   const { user, bill } = req.references;
-  if (user._id !== R.path(["user", "_id"], bill)) {
+  const {
+    jwt: { permissions },
+  } = req;
+  if (
+    user._id !== R.path(["user", "_id"], bill) ||
+    !R.includes("admin", permissions || [])
+  ) {
     return res.status(403).json({ reason: "do not own" });
   }
   return next();

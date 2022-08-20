@@ -10,19 +10,17 @@ model.getEventType = (event) => {
   return eventTypes.getById(R.path(["eventType", "_id"], event));
 };
 
-const updateEvent =
-  ({ _id, ...body }) =>
-    (value) =>
-      model.update(
-        _id,
-        R.pipe(
-          R.omit(["_rev"]),
-          R.mergeDeepLeft({
-            value,
-            winner: value ? R.omit(["event"], value) : null,
-          })
-        )(body)
-      );
+const updateEvent = ({ _id, ...body }, bill) =>
+  model.update(
+    _id,
+    R.pipe(
+      R.omit(["_rev"]),
+      R.mergeDeepLeft({
+        ...body,
+        winner: bill ? R.omit(["event"], bill) : null,
+      })
+    )(body)
+  );
 
 const pickAnyBill = (event) => {
   const { _id } = event;
@@ -39,7 +37,7 @@ const pickAnyBill = (event) => {
     .find({ selector: { data, event: { _id } } })
     .then(R.propOr([], ["data"]))
     .then(R.head)
-    .then(updateEvent(event));
+    .then((bill) => updateEvent(event, bill));
 };
 
 const forceWinner = (event) => {

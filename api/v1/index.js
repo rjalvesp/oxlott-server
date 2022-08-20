@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const ensureAuthenticated = require("./middlewares/ensure-authenticated");
-const ensurePaymentServer = require("./middlewares/ensure-payment-server");
 const tokenValidator = require("../../auth0/token-validator");
 
 router.use("/assets", require("./routes/assets"));
@@ -22,7 +21,7 @@ router.use(
   ensureAuthenticated,
   require("./routes/event-types")
 );
-router.use("/payments", ensurePaymentServer, require("./routes/payments"));
+router.use("/payments", require("./routes/payments"));
 router.use(
   "/users",
   tokenValidator,

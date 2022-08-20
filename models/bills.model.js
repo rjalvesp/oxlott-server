@@ -29,7 +29,6 @@ const model = db.createModel({ type: "bill", design: "bills", schema });
 //     .then(() => model.isBlocked(userId, eventId, data));
 
 const validateTicket = (eventId, data) => {
-  console.log(1, data);
   return model
     .find({
       selector: {
@@ -66,7 +65,6 @@ const getData = (body, { canPickElements, elements, minValue, maxValue }) => {
       body.tickets
     );
   }
-  console.log(2, canPickElements, data);
   return data;
 };
 
@@ -97,6 +95,26 @@ model.baseCreate = model.create;
 
 const queue = createQueue("BillCreation");
 
+const saveAndUpdateBill = (data, user, event) =>
+  Promise.all(
+    data.map((newData) =>
+      model.baseCreate({
+        user,
+        event,
+        data: newData,
+        date: dayjs().utc().format(),
+      })
+    )
+  )
+    .then(R.pluck("id"))
+    .then((bills) => model.find({ selector: { _id: { $or: bills } } }))
+    .then(R.propOr([], "data"))
+    .then((bills) => {
+      userBalanceModel.subtract(user._id, { bills });
+      return bills;
+    })
+    .then(R.objOf("data"));
+
 queue.process(({ data: body }) => {
   const { event, user } = body;
   const {
@@ -123,24 +141,7 @@ queue.process(({ data: body }) => {
             errors: ["Not enough funds"],
           };
         }
-        return Promise.all(
-          data.map((newData) =>
-            model.baseCreate({
-              user,
-              event,
-              data: newData,
-              date: dayjs().utc().format(),
-            })
-          )
-        )
-          .then(R.pluck("id"))
-          .then((bills) => model.find({ selector: { _id: { $or: bills } } }))
-          .then(R.propOr([], "data"))
-          .then((bills) => {
-            userBalanceModel.subtract(user._id, { bills });
-            return bills;
-          })
-          .then(R.objOf("data"));
+        return saveAndUpdateBill(data, user, event);
       });
   });
 });

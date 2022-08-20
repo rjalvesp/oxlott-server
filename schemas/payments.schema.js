@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { model: usersModel } = require("./users.schema");
 
 module.exports = {
   model: {
@@ -9,6 +10,7 @@ module.exports = {
     amountTotal: Joi.string().optional(),
     paymentIntentId: Joi.string().optional(),
     paid: Joi.boolean().default(false),
+    user: Joi.object(usersModel),
   },
   query: {
     token: Joi.string().required(),

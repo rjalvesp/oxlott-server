@@ -36,7 +36,6 @@ router.post(
 router.get("/*", (req, res) => {
   const key = R.pipe(R.values, R.head)(req.params);
   const { attachment } = req.query;
-  console.log(key);
   storage
     .read(key)
     .then(({ Body }) => {
@@ -49,10 +48,7 @@ router.get("/*", (req, res) => {
       res.set("Content-Type", mime.contentType(key));
       bufferToStream(Body).pipe(res);
     })
-    .catch((e) => {
-      console.log(e);
-      res.status(500).json({ reason: "Failed to retrieve asset" });
-    });
+    .catch(() => res.status(500).json({ reason: "Failed to retrieve asset" }));
 });
 
 module.exports = router;

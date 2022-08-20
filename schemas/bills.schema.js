@@ -5,6 +5,8 @@ const { model: usersModel } = require("./users.schema");
 const schema = {
   date: Joi.date().format("YYYY-MM-DD").utc(),
   data: Joi.array().items(Joi.number()).required(),
+  claimed: Joi.boolean().default(false),
+  paid: Joi.boolean().default(false),
 };
 
 module.exports = {

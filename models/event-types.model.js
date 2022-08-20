@@ -28,25 +28,32 @@ const findEventByTypeAndDate = ({ eventTypeId, from, to }) =>
     .then(R.prop("filteredTotal"))
     .then(Boolean);
 
-const trySaveEvent = async (
-  { eventType, defaultCost: cost, defaultPrize: prize, name },
-  { start, duration }
-) => {
-  const [hour = 0, minute = 0] = (start || "").split(":");
+const getFromTo = (duration, hour, minute) => {
   const fromDate = dayjs()
     .set("hour", hour)
     .set("minute", minute)
     .set("second", 0)
     .utc();
-  const from = fromDate.format();
-  const to = fromDate.add(dayjs.duration(duration)).format();
+  return {
+    from: fromDate.format(),
+    to: fromDate.add(dayjs.duration(duration)).format(),
+  };
+};
 
+const trySaveEvent = async (eventType, { start, duration }) => {
+  const {
+    _id: eventTypeId,
+    defaultCost: cost,
+    defaultPrize: prize,
+    name,
+  } = eventType;
+  const [hour = 0, minute = 0] = (start || "").split(":");
+  const { from, to } = getFromTo(duration, hour, minute);
   const exists = await findEventByTypeAndDate({
-    eventTypeId: eventType._id,
+    eventTypeId,
     from,
     to,
   });
-
   if (exists) {
     return;
   }
@@ -62,7 +69,7 @@ const trySaveEvent = async (
 };
 
 const generateEventByEventType = async (eventType) => {
-  const { at, frequency, disabled, ...settings } = eventType;
+  const { at, frequency, disabled } = eventType;
 
   if (disabled) {
     return;
@@ -70,7 +77,7 @@ const generateEventByEventType = async (eventType) => {
 
   const cronJob = cron.schedule(frequency, async () => {
     for (const row of at || []) {
-      await trySaveEvent(settings, row);
+      await trySaveEvent(eventType, row);
     }
   });
   cronJobs.push(cronJob);
