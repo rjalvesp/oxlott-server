@@ -2,6 +2,7 @@ const R = require("ramda");
 const { model: schema } = require("../schemas/user-balances.schema");
 const { db, createQueue } = require("../database");
 const logger = require("../logger");
+// const { setOverTime } = require("./stats.model");
 
 const model = db.createModel({
   type: "userBalance",
@@ -70,10 +71,20 @@ const queue = (type, userId) => {
 model.add = (userId, body) =>
   queue("add", userId)
     .add(body)
-    .then((job) => job.finished());
+    .then((job) => {
+      // TODO
+      // Promise.all([
+      //   setOverTime('')
+      // ])
+      return job.finished();
+    });
 model.subtract = (userId, body) =>
   queue("subtract", userId)
     .add(body)
-    .then((job) => job.finished());
+    .then((job) => {
+      // TODO
+      // Promise.all([]);
+      return job.finished();
+    });
 
 module.exports = model;

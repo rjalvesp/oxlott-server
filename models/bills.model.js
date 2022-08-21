@@ -5,6 +5,7 @@ const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
 const { model: schema } = require("../schemas/bills.schema");
 const userBalanceModel = require("./user-balances.model");
+const { increaseOverTime } = require("./stats.model");
 const { db, createQueue } = require("../database");
 
 const model = db.createModel({ type: "bill", design: "bills", schema });
@@ -97,14 +98,19 @@ const queue = createQueue("BillCreation");
 
 const saveAndUpdateBill = (data, user, event) =>
   Promise.all(
-    data.map((newData) =>
-      model.baseCreate({
+    data.map(async (newData) => {
+      Promise.all([
+        increaseOverTime("bill"),
+        increaseOverTime(`bill:${user._id}`),
+        increaseOverTime(`bill:${event._id}`),
+      ]);
+      return model.baseCreate({
         user,
         event,
         data: newData,
         date: dayjs().utc().format(),
-      })
-    )
+      });
+    })
   )
     .then(R.pluck("id"))
     .then((bills) => model.find({ selector: { _id: { $or: bills } } }))

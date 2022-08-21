@@ -79,7 +79,6 @@ if (
   !R.includes(process.env.NODE_ENV || "", ["", "LOCAL"])
 ) {
   logger.info(`Master ${process.pid} is running`);
-  console.log(process.env.NODE_ENV);
   // Fork workers.
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
